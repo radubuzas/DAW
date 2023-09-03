@@ -1,82 +1,79 @@
 using WebApplication1.Models;
 using System.Collections.Generic;
 using System.Linq;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using WebApplication1.Repository;
 using WebApplication1.Data;
+using WebApplication1.Repository.CarteRepository;
 
 namespace WebApplication1.Services
 {
     public class CarteService : ICarteService
     {
-        private readonly DBCTX _context;
-
-        public CarteService(DBCTX context)
+        private readonly ICarteRepository _repository;
+        public CarteService(ICarteRepository repository)
         {
-            _context = context;
+            _repository = repository;
         }
 
-        public List<Carte> GetAll()
+        public Task<List<Carte>> GetAll()
         {
-            return _context.Carti.ToList();
+            return _repository.GetAll();
         }
-
-        public Carte Get(int id)
+        
+        public Task<List<Carte>> GetByAuthor(int idAutor)
         {
-            return _context.Carti.Find(id);
+            return _repository.GetByAuthor(idAutor);
         }
-
-        public Carte Create(Carte book)
+        
+        public Task<List<Carte>> GetByGenre(string genre)
         {
-            _context.Carti.Add(book);
-            _context.SaveChanges();
-            return book;
+            return _repository.GetByGenre(genre);
         }
-
-        public void Update(int id, Carte bookIn)
+        
+        public Carte GetById(int id)
         {
-            var book = _context.Carti.Find(id);
-            if (book != null)
+            return _repository.GetById(id);
+        }
+        
+        public Task<Carte> AddAsync(Carte carte)
+        {
+            var newCarte = new Carte
             {
-                book.Titlu = bookIn.Titlu;
-                book.CarteAutori = bookIn.CarteAutori;
-                book.Gen = bookIn.Gen;
-                book.ISBN = bookIn.ISBN;
-                book.ExemplareDisponibile = bookIn.ExemplareDisponibile;
-                book.ExemplareTotale = bookIn.ExemplareTotale;
-
-                _context.Carti.Update(book);
-                _context.SaveChanges();
-            }
-        }
-
-        public void Remove(int id)
-        {
-            var book = _context.Carti.Find(id);
-            if (book != null)
-            {
-                _context.Carti.Remove(book);
-                _context.SaveChanges();
-            }
+                Id = carte.Id,
+                Titlu = carte.Titlu,
+                CarteAutori = carte.CarteAutori,
+                DescriereCarte = carte.DescriereCarte,
+                Gen = carte.Gen,
+                ExemplareDisponibile = carte.ExemplareDisponibile,
+                ExemplareTotale = carte.ExemplareTotale,
+                ISBN = carte.ISBN
+            };
+            var ret = _repository.AddAsync(newCarte);
+            _repository.SaveAsync();
+            
+            return ret;
         }
         
-        // În CarteService.cs
-
-        public List<IGrouping<string, Carte>> CartiDupaGen()
+        public Task<bool> UpdateAsync(int idCarte, Carte carte)
         {
-            return _context.Carti.GroupBy(c => c.Gen).ToList();
+            var ret =  _repository.UpdateAsync(idCarte, carte);
+            _repository.SaveAsync();
+            return ret;
         }
-
-        public List<Carte> CartiCuDescriere()
-        {
-            return _context.Carti.Include(c => c.DescriereCarte).ToList();
-        }
-
-        public List<Carte> CartiDupaTitlu(string substring)
-        {
-            return _context.Carti.Where(c => c.Titlu.Contains(substring)).ToList();
-        }
-
         
-        
+        public Task<bool> DeleteAsync(int id)
+        {
+            var ret = _repository.DeleteAsync(id);
+            _repository.SaveAsync();
+            return ret;
+        }
+
+        public Task<bool> SaveAsync()
+        {
+            return _repository.SaveAsync();
+        }
+
     }
 }
