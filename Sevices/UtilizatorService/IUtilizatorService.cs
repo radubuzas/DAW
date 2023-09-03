@@ -8,10 +8,10 @@ namespace WebApplication1.Services
         
         public bool EmailExists(string email);
         
-        Utilizator Get(int id);
+        Utilizator GetById(int id);
         Utilizator Create(Utilizator user);
         bool ModifyPassword(int userId, string newPassword);
-        void Update(int id, Utilizator userIn);
-        void Remove(int id);
+        List<Imprumut> GetImprumuturiByUser(int id);
+        void DeleteUser(int id);
     }
 }

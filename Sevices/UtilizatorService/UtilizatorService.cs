@@ -21,9 +21,9 @@ namespace WebApplication1.Services
             return _repository.GetAll();
         }
         
-        public Utilizator Get(int id)
+        public Utilizator GetById(int id)
         {
-            return null;
+            return _repository.GetById(id);
         }
         
         public Utilizator Create(Utilizator utilizator)
@@ -53,20 +53,29 @@ namespace WebApplication1.Services
             _repository.UpdatePassword(user);
             return true;
         }
-        
-        public void Update(int id, Utilizator userIn)
+
+        public void DeleteUser(int id)
         {
-            ;
-        }
-        
-        public void Remove(int id)
-        {
-            ;
+            try
+            {
+                _repository.Delete(id);
+                _repository.Update();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
         }
         
         public bool EmailExists(string email)
         {
             return _repository.EmailExists(email);
+        }
+        
+        public List<Imprumut> GetImprumuturiByUser(int id)
+        {
+            return _repository.GetImprumuturiByUser(id);
         }
         
         

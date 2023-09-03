@@ -50,5 +50,18 @@ namespace WebApplication1.Controllers
             }
             return BadRequest();
         }
+        
+        [HttpGet("GetImprumuturiByUser")]
+        public List<Imprumut> GetImprumuturiByUser(int Id)
+        {
+            return _utilizatorService.GetImprumuturiByUser(Id);
+        }
+        
+        [HttpDelete("DeleteUser")]
+        public IActionResult DeleteUser(int Id)
+        {
+            _utilizatorService.DeleteUser(Id);
+            return Ok();
+        }
     }
 }

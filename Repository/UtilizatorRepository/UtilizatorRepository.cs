@@ -30,6 +30,13 @@ namespace WebApplication1.Repository
             return utilizator;
         }
 
+        public async void Delete(int Id)
+        {
+            _context.Utilizatori.Remove(GetById(Id));
+            await _context.SaveChangesAsync();
+            _table.Remove(GetById(Id));
+        }
+
         public Utilizator GetByEmail(string email)
         {
             return _context.Utilizatori.FirstOrDefault(u => u.Email == email);

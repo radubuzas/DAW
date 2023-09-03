@@ -14,5 +14,7 @@ namespace WebApplication1.Repository
         bool EmailExists(string email);
         List<Imprumut> GetImprumuturiByUser(int id);
         Task<bool> Update();
+        
+        void Delete(int id);
     }
 }
