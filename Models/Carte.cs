@@ -12,15 +12,13 @@ namespace WebApplication1.Models
         [Required]
         [StringLength(200)]
         public string Titlu { get; set; }
-
-        [Required]
-        public ICollection<CarteAutor> CarteAutori { get; set; }
         
-        [Required]
-        public DescriereCarte DescriereCarte { get; set; }
+        public ICollection<CarteAutor>? CarteAutori { get; set; }
+        
+        public DescriereCarte? DescriereCarte { get; set; }
 
         [StringLength(50)]
-        public string Gen { get; set; }
+        public string? Gen { get; set; }
 
         [Required]
         public string ISBN { get; set; }

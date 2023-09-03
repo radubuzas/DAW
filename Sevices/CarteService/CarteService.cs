@@ -7,7 +7,7 @@ using WebApplication1.Repository;
 using WebApplication1.Data;
 using WebApplication1.Repository.CarteRepository;
 
-namespace WebApplication1.Services
+namespace WebApplication1.Services.CarteService
 {
     public class CarteService : ICarteService
     {

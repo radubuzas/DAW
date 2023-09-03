@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using WebApplication1.Models;
 using System.Collections.Generic;
 using WebApplication1.Services;
+using WebApplication1.Services.CarteService;
 
 namespace WebApplication1.Controllers
 {
@@ -10,9 +11,9 @@ namespace WebApplication1.Controllers
     [ApiController]
     public class CartiController : ControllerBase
     {
-        private readonly CarteService _carteService;
+        private readonly ICarteService _carteService;
 
-        public CartiController(CarteService carteService)
+        public CartiController(ICarteService carteService)
         {
             _carteService = carteService;
         }

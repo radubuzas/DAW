@@ -15,7 +15,6 @@ public class DescriereCarte
     [MinLength(500)]
     [MaxLength(5000)]
     public string DescriereLunga { get; set; }
-
-    [Required]
+    
     public Carte Carte { get; set; }
 }

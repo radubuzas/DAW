@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using WebApplication1.Data;
 using WebApplication1.Repository;
 
-namespace WebApplication1.Services
+namespace WebApplication1.Services.UtilizatorService
 {
     public class UtilizatorService : IUtilizatorService
     {
