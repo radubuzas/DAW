@@ -28,7 +28,6 @@ namespace WebApplication1.Services
             {
                 Id = imprumut.Id,
                 UtilizatorId = imprumut.UtilizatorId,
-                CarteId = imprumut.CarteId,
                 DataImprumut = imprumut.DataImprumut,
                 DataReturnare = imprumut.DataReturnare
             };

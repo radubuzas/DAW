@@ -10,7 +10,6 @@ namespace WebApplication1.Models
         public int Id { get; set; }
         public int UtilizatorId { get; set; }
         public Utilizator Utilizator { get; set; } = null!;
-        public int CarteId { get; set; }
         public List<CarteImprumut> CarteImprumuts { get; } = new();
         public DateTime DataImprumut { get; set; }
         public DateTime? DataReturnare { get; set; }
