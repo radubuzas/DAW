@@ -24,7 +24,15 @@ namespace WebApplication1.Services
 
         public async Task<Imprumut> AddAsync(Imprumut imprumut)
         {
-            var ret = await _repository.AddAsync(imprumut);
+            Imprumut newImprumut = new Imprumut
+            {
+                Id = imprumut.Id,
+                UtilizatorId = imprumut.UtilizatorId,
+                CarteId = imprumut.CarteId,
+                DataImprumut = imprumut.DataImprumut,
+                DataReturnare = imprumut.DataReturnare
+            };
+            var ret = await _repository.AddAsync(newImprumut);
             await SaveAsync();
             return ret;
         }
