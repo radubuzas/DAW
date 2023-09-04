@@ -19,6 +19,12 @@ namespace WebApplication1.Controllers
         }
         
 
+        [HttpGet("getAll")]
+        public ActionResult<List<Carte>> GetAll()
+        {
+            return Ok(_carteService.GetAll());
+        }
+        
         // GET: api/Carti
         [HttpGet("getById/{id}")]
         public ActionResult<Carte> Get(int id)
