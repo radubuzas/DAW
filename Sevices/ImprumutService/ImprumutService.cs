@@ -2,58 +2,70 @@ using System.Collections.Generic;
 using System.Linq;
 using WebApplication1.Data;
 using WebApplication1.Models;
+using WebApplication1.Repository;
 
 namespace WebApplication1.Services
 {
     public class ImprumutService : IImprumutService
     {
         private readonly DBCTX _context;
+        private readonly IImprumutRepository _repository;
 
-        public ImprumutService(DBCTX context)
+        public ImprumutService(DBCTX context, IImprumutRepository repository)
         {
             _context = context;
+            _repository = repository;
         }
 
-        public List<Imprumut> GetAll()
+        public async Task<List<Imprumut>> GetAll()
         {
-            return _context.Imprumuturi.ToList();
+            return await _repository.GetAll();
         }
 
-        public Imprumut Get(int id)
+        public async Task<Imprumut> AddAsync(Imprumut imprumut)
         {
-            return _context.Imprumuturi.FirstOrDefault(i => i.Id == id);
+            var ret = await _repository.AddAsync(imprumut);
+            await SaveAsync();
+            return ret;
         }
 
-        public Imprumut Create(Imprumut imprumut)
+        public async Task<bool> UpdateAsync(int IdImprumut, Imprumut imprumut)
         {
-            _context.Imprumuturi.Add(imprumut);
-            _context.SaveChanges();
-
-            return imprumut;
+            var ret = await _repository.UpdateAsync(IdImprumut, imprumut);
+            await SaveAsync();
+            return ret;
         }
 
-        public void Update(int id, Imprumut imprumutIn)
+        public async Task<bool> DeleteAsync(int id)
         {
-            var imprumut = _context.Imprumuturi.FirstOrDefault(i => i.Id == id);
-            if (imprumut != null)
-            {
-                imprumut.UtilizatorId = imprumutIn.UtilizatorId;
-                imprumut.CarteId = imprumutIn.CarteId;
-                imprumut.DataImprumut = imprumutIn.DataImprumut;
-                imprumut.DataReturnare = imprumutIn.DataReturnare;
-                
-                _context.SaveChanges();
-            }
+            var ret =  await _repository.DeleteAsync(id);
+            await SaveAsync();
+            return ret;
         }
 
-        public void Remove(int id)
+        public async Task<bool> SaveAsync()
         {
-            var imprumut = _context.Imprumuturi.FirstOrDefault(i => i.Id == id);
-            if (imprumut != null)
-            {
-                _context.Imprumuturi.Remove(imprumut);
-                _context.SaveChanges();
-            }
+            return await _repository.SaveAsync();
+        }
+
+        public async Task<List<Imprumut>> GetActiveRents()
+        {
+            return await _repository.GetActiveRents();
+        }
+
+        public async Task<List<Imprumut>> GetPastRent()
+        {
+            return await _repository.GetPastRent();
+        }
+
+        public async Task<Imprumut> GetById(int id)
+        {
+            return await _repository.GetById(id);
+        }
+
+        public int GetNumberOfActiveRents()
+        {
+            return _repository.GetNumberOfActiveRents();
         }
     }
 }
