@@ -2,7 +2,7 @@ using Microsoft.Extensions.DependencyInjection;
 using WebApplication1.Models;
 using WebApplication1.Repository;
 using WebApplication1.Repository.CarteRepository;
-using WebApplication1.Repository.ImprumutRepository;
+using WebApplication1.Repository;
 using WebApplication1.Services.CarteService;
 using WebApplication1.Services;
 using WebApplication1.Services.UtilizatorService;

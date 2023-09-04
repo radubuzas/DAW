@@ -14,7 +14,7 @@ namespace WebApplication1.Services
         Carte GetById(int id);
 
         //update
-        Task<bool> UpdateAsync(int idCarte, Carte carte); 
+        Task<bool> UpdateAsync(Carte carte); 
             
         //delete
         Task<bool> DeleteAsync(int id);

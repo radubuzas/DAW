@@ -28,14 +28,10 @@ public class CarteRepository : ICarteRepository
         return carte;
     }
     
-    public async Task<bool> UpdateAsync(int IdCarte, Carte carte)
+    public async Task<bool> UpdateAsync(Carte carte)
     {
-        var exists = await _table.FindAsync(IdCarte);
-        if (exists == null)
-        {
-            return false;
-        }
         _table.Update(carte);
+        _context.Entry(carte).State = EntityState.Modified;
         await _context.SaveChangesAsync();
         return true;
     }
@@ -73,7 +69,7 @@ public class CarteRepository : ICarteRepository
     
     public async Task<List<Carte>> GetByGenre(string genre)
     {
-        return await _table.AsNoTracking().Where(c => c.Gen.Contains(genre)).ToListAsync();
+        return await _table.AsNoTracking().Where(c => c.Gen.ToLower().Equals(genre.ToLower())).ToListAsync();
     }
     
     public Carte GetById(int id)

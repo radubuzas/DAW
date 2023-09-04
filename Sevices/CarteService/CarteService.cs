@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Query;
 using WebApplication1.Repository;
 using WebApplication1.Data;
 using WebApplication1.Repository.CarteRepository;
@@ -56,9 +57,10 @@ namespace WebApplication1.Services.CarteService
             return ret;
         }
         
-        public Task<bool> UpdateAsync(int idCarte, Carte carte)
+        public async Task<bool> UpdateAsync(Carte carte)
         {
-            var ret =  _repository.UpdateAsync(idCarte, carte);
+            
+            var ret = await _repository.UpdateAsync(carte);
             _repository.SaveAsync();
             return ret;
         }

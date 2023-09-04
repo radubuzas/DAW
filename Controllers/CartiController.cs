@@ -20,9 +20,9 @@ namespace WebApplication1.Controllers
         
 
         [HttpGet("getAll")]
-        public ActionResult<List<Carte>> GetAll()
+        public async Task<ActionResult<List<Carte>>> GetAll()
         {
-            return Ok(_carteService.GetAll());
+            return Ok(await _carteService.GetAll());
         }
         
         // GET: api/Carti
@@ -91,7 +91,15 @@ namespace WebApplication1.Controllers
                 return NotFound();
             }
 
-            var ret = await _carteService.UpdateAsync(id, bookIn);
+            book.Gen = bookIn.Gen;
+            book.Titlu = bookIn.Titlu;
+            book.ISBN = bookIn.ISBN;
+            book.ExemplareDisponibile = bookIn.ExemplareDisponibile;
+            book.ExemplareTotale = bookIn.ExemplareTotale;
+            book.DescriereCarte = bookIn.DescriereCarte;
+            book.CarteAutori = bookIn.CarteAutori;
+
+            var ret = await _carteService.UpdateAsync(book);
 
             return Ok(ret);
         }
