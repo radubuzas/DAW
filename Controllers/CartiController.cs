@@ -34,9 +34,9 @@ namespace WebApplication1.Controllers
         }
 
         [HttpGet("dupaGen/{gen}")]
-        public ActionResult<Carte> GetByGenre(string gen)
+        public async Task<ActionResult<Carte>> GetByGenre(string gen)
         {
-            var books = _carteService.GetByGenre(gen);
+            var books = await _carteService.GetByGenre(gen);
 
             if (books == null)
             {
@@ -47,9 +47,9 @@ namespace WebApplication1.Controllers
         }
 
         [HttpGet("dupaAutor/{idAutor}")]
-        public ActionResult<Carte> GetByAuthor(int idAutor)
+        public async Task<ActionResult<Carte>> GetByAuthor(int idAutor)
         {
-            var books = _carteService.GetByAuthor(idAutor);
+            var books = await _carteService.GetByAuthor(idAutor);
 
             if (books == null)
             {
@@ -61,11 +61,11 @@ namespace WebApplication1.Controllers
         
         // POST: api/Carti
         [HttpPost("create")]
-        public ActionResult<Carte> Create(Carte book)
+        public async Task<ActionResult<Carte>> Create(Carte book)
         {
             try
             {
-                var newBook = _carteService.AddAsync(book);
+                var newBook = await _carteService.AddAsync(book);
                 return Ok(newBook);
             }
             catch (Exception e)
@@ -75,8 +75,8 @@ namespace WebApplication1.Controllers
         }
 
         // PUT: api/Carti/5
-        [HttpPut("{id}")]
-        public IActionResult Update(int id, Carte bookIn)
+        [HttpPut("ModifyBookById/{id}")]
+        public async Task<IActionResult> Update(int id, Carte bookIn)
         {
             var book = _carteService.GetById(id);
 
@@ -85,14 +85,14 @@ namespace WebApplication1.Controllers
                 return NotFound();
             }
 
-            var ret = _carteService.UpdateAsync(id, bookIn);
+            var ret = await _carteService.UpdateAsync(id, bookIn);
 
             return Ok(ret);
         }
 
         // DELETE: api/Carti/5
         [HttpDelete("{id}")]
-        public IActionResult Delete(int id)
+        public async Task<IActionResult> Delete(int id)
         {
             var book = _carteService.GetById(id);
 
@@ -101,7 +101,7 @@ namespace WebApplication1.Controllers
                 return NotFound();
             }
 
-            var ret = _carteService.DeleteAsync(id);
+            var ret = await _carteService.DeleteAsync(id);
 
             return Ok(ret);
         }

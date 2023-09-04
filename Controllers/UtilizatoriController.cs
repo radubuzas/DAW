@@ -18,7 +18,7 @@ namespace WebApplication1.Controllers
             _utilizatorService = utilizatorService;
         }
 
-        [HttpPut("register")]
+        [HttpPost("register")]
         public IActionResult Register(Utilizator utilizator)
         {
             if (_utilizatorService.EmailExists(utilizator.Email)) {
@@ -41,7 +41,7 @@ namespace WebApplication1.Controllers
             return _utilizatorService.GetAll();
         }
         
-        [HttpPost("ModifyPassword")]
+        [HttpPut("ModifyPasswordById/{Id}")]
         public IActionResult ModifyPassword(int Id, string Parola)
         {
             if (_utilizatorService.ModifyPassword(Id, Parola))

@@ -13,9 +13,8 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddDbContext<DBCTX>(options => options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
 
-builder.Services.AddServices();
 builder.Services.AddRepositories();
-
+builder.Services.AddServices();
 
 builder.Services.AddSwaggerGen(c =>
 {
