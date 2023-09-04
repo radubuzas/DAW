@@ -30,6 +30,7 @@ namespace WebApplication1.Data
                 .HasForeignKey(b => b.UtilizatorId);
              
             // M:M
+            // Carte - Autor
             modelBuilder.Entity<CarteAutor>()
                 .HasKey(ca => new { ca.CarteId, ca.AutorId });
             
@@ -42,6 +43,20 @@ namespace WebApplication1.Data
                 .HasOne<Autor>(ca => ca.Autor)
                 .WithMany(a => a.CarteAutori)
                 .HasForeignKey(ca => ca.AutorId);
+            
+            // Carte - Imprumut
+            modelBuilder.Entity<CarteImprumut>()
+                .HasKey(ci => new { ci.CarteId, ci.ImprumutId });
+            
+            modelBuilder.Entity<CarteImprumut>()
+                .HasOne<Carte>(ci => ci.Carte)
+                .WithMany(c => c.CarteImprumuts)
+                .HasForeignKey(ci => ci.CarteId);
+            
+            modelBuilder.Entity<CarteImprumut>()
+                .HasOne<Imprumut>(ci => ci.Imprumut)
+                .WithMany(i => i.CarteImprumuts)
+                .HasForeignKey(ci => ci.ImprumutId);
         }
         
     }

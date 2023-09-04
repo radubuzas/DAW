@@ -16,6 +16,9 @@ namespace WebApplication1.Models
         public ICollection<CarteAutor>? CarteAutori { get; set; }
         
         public DescriereCarte? DescriereCarte { get; set; }
+        
+        public List<CarteImprumut> CarteImprumuts { get; } = new();
+        
 
         [StringLength(50)]
         public string? Gen { get; set; }

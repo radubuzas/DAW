@@ -67,12 +67,14 @@ namespace WebApplication1.Repository
         
         public async Task<List<Imprumut>> GetActiveRents()
         {
-            return await _table.AsNoTracking().Where(x => x.DataReturnare == null || x.DataReturnare > DateTime.Now).ToListAsync();
+            var currentTime = DateTimeOffset.UtcNow;
+            return await _table.AsNoTracking().Where(x => x.DataReturnare == null || x.DataReturnare > currentTime).ToListAsync();
         }
         
         public async Task<List<Imprumut>> GetPastRent()
         {
-            return await _table.AsNoTracking().Where(x => x.DataReturnare < DateTime.Now).ToListAsync();
+            var currentTime = DateTimeOffset.UtcNow;
+            return await _table.AsNoTracking().Where(x => x.DataReturnare < DateTime.Now.ToUniversalTime()).ToListAsync();
         }
         
         public async Task<Imprumut> GetById(int id)

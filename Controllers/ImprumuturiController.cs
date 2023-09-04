@@ -9,25 +9,25 @@ namespace WebApplication1.Controllers
     [ApiController]
     public class ImprumuturiController : ControllerBase
     {
-        private readonly ImprumutService _imprumutService;
+        private readonly IImprumutService _imprumutService;
 
-        public ImprumuturiController(ImprumutService imprumutService)
+        public ImprumuturiController(IImprumutService imprumutService)
         {
             _imprumutService = imprumutService;
         }
 
         // GET: api/Imprumuturi
         [HttpGet("getAll")]
-        public ActionResult<List<Imprumut>> GetAll()
+        public async Task<ActionResult<List<Imprumut>>> GetAll()
         {
-            return Ok(_imprumutService.GetAll());
+            return Ok(await _imprumutService.GetAll());
         }
 
         // GET: api/Imprumuturi/5
         [HttpGet("getById/{id}")]
-        public ActionResult<Imprumut> Get(int id)
+        public async Task<ActionResult<Imprumut>> GetById(int id)
         {
-            var imprumut = _imprumutService.GetById(id);
+            var imprumut = await _imprumutService.GetById(id);
 
             if (imprumut == null)
             {
@@ -78,15 +78,15 @@ namespace WebApplication1.Controllers
         }
         
         [HttpGet("getActiveRents")]
-        public ActionResult<List<Imprumut>> GetActiveRents()
+        public async Task<ActionResult<List<Imprumut>>> GetActiveRents()
         {
-            return Ok(_imprumutService.GetActiveRents());
+            return Ok(await _imprumutService.GetActiveRents());
         }
         
         [HttpGet("getPastRent")]
-        public ActionResult<List<Imprumut>> GetPastRent()
+        public async Task<ActionResult<List<Imprumut>>> GetPastRent()
         {
-            return Ok(_imprumutService.GetPastRent());
+            return Ok(await _imprumutService.GetPastRent());
         }
 
         [HttpGet("getNumberOfActiveRents")]
