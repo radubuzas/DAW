@@ -20,6 +20,7 @@ namespace WebApplication1.Controllers
             _utilizatorService = utilizatorService;
         }
 
+        [Authorization(Role.User)]
         [HttpPost("register")]
         public IActionResult Register(Utilizator utilizator)
         {

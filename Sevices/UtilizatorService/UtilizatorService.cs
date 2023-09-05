@@ -40,7 +40,8 @@ namespace WebApplication1.Services.UtilizatorService
                     NumarTelefon = utilizator.NumarTelefon,
                     Email = utilizator.Email,
                     Parola = utilizator.Parola,
-                };
+                    Role = utilizator.Role,
+            };
             _repository.Create(newUtilizator);
             _repository.Update();
             

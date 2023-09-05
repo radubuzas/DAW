@@ -12,7 +12,7 @@ namespace WebApplication1.Models
         [StringLength(100)]
         public string Nume { get; set; }
         
-        public ICollection<Imprumut>? Imprumuturi { get; set; }
+        public ICollection<Imprumut>? Imprumuturi { get; }
 
         [StringLength(300)]
         public string Adresa { get; set; }
