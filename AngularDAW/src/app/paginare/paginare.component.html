@@ -1,0 +1,5 @@
+<div class="pagination">
+  <button (click)="previousPage()" [disabled]="currentPage <= 1">Anterior</button>
+  <span>Pagina {{ currentPage }} din {{ totalPages }}</span>
+  <button (click)="nextPage()" [disabled]="currentPage >= totalPages">Următor</button>
+</div>
