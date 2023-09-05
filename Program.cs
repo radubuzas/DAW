@@ -24,6 +24,11 @@ builder.Services.AddSwaggerGen(c =>
 });
 
 
+builder.Services.AddRepositories();
+builder.Services.AddServices();
+builder.Services.AddSeeders();
+builder.Services.AddUtils();
+
 var app = builder.Build();
 
 app.UseRouting();
