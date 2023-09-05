@@ -4,6 +4,7 @@ using System.Data;
 using Microsoft.EntityFrameworkCore;
 using WebApplication1.Data;
 using WebApplication1.Helpers;
+using WebApplication1.Helpers.Seeders;
 using WebApplication1.Repository;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -15,6 +16,7 @@ builder.Services.AddDbContext<DBCTX>(options => options.UseNpgsql(builder.Config
 
 builder.Services.AddRepositories();
 builder.Services.AddServices();
+builder.Services.AddSeeders();
 
 builder.Services.AddSwaggerGen(c =>
 {
@@ -39,3 +41,13 @@ app.UseEndpoints(endpoints =>
 
 app.Run();
 
+void SeedData(IHost app)
+{
+    var scopeFactory = app.Services.GetService<IServiceScopeFactory>();
+
+    using (var scope = scopeFactory.CreateScope())
+    {
+        var service = scope.ServiceProvider.GetService<UtilizatorSeeder>();
+        service.SeedInitialUtilizatori();
+    }
+}

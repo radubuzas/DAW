@@ -1,4 +1,5 @@
 using Microsoft.Extensions.DependencyInjection;
+using WebApplication1.Helpers.Seeders;
 using WebApplication1.Models;
 using WebApplication1.Repository;
 using WebApplication1.Repository.CarteRepository;
@@ -20,6 +21,13 @@ namespace WebApplication1.Helpers {
             services.AddTransient<ICarteService, CarteService>();
             services.AddTransient<IUtilizatorService, UtilizatorService>();
             services.AddTransient<IImprumutService, ImprumutService>();
+            return services;
+        }
+        
+        public static IServiceCollection AddSeeders(this IServiceCollection services) {
+            // services.AddTransient<CarteSeeder>();
+            services.AddScoped<UtilizatorSeeder>();
+            // services.AddTransient<ImprumutSeeder>();
             return services;
         }
     }
