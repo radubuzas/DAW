@@ -42,7 +42,7 @@ namespace WebApplication1.Controllers
         }
         
         [HttpPut("ModifyPasswordById/{Id}")]
-        public IActionResult ModifyPassword(int Id, string Parola)
+        public IActionResult ModifyPassword(Guid Id, string Parola)
         {
             if (_utilizatorService.ModifyPassword(Id, Parola))
             {
@@ -52,13 +52,13 @@ namespace WebApplication1.Controllers
         }
         
         [HttpGet("GetImprumuturiByUser")]
-        public List<Imprumut> GetImprumuturiByUser(int Id)
+        public List<Imprumut> GetImprumuturiByUser(Guid Id)
         {
             return _utilizatorService.GetImprumuturiByUser(Id);
         }
         
         [HttpDelete("DeleteUser")]
-        public IActionResult DeleteUser(int Id)
+        public IActionResult DeleteUser(Guid Id)
         {
             _utilizatorService.DeleteUser(Id);
             return Ok();

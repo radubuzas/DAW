@@ -65,6 +65,11 @@ namespace WebApplication1.Repository
             await _context.SaveChangesAsync();
             return utilizator;
         }
+        
+        public Utilizator FindByEmail(string email)
+        {
+            return _context.Utilizatori.FirstOrDefault(u => u.Email.ToLower().Equals(email.ToLower()));
+        } 
 
 
         public async Task<bool> Update()

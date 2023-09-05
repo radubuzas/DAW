@@ -15,6 +15,8 @@ namespace WebApplication1.Repository
         List<Imprumut> GetImprumuturiByUser(int id);
         Task<bool> Update();
         
+        Utilizator FindByEmail(string email);
+        
         void Delete(int id);
     }
 }

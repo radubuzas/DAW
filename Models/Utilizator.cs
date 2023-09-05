@@ -1,11 +1,12 @@
 using System.ComponentModel.DataAnnotations;
+using WebApplication1.Models.Enums;
 
 namespace WebApplication1.Models
 {
     public class Utilizator
     {
         [Key]
-        public int Id { get; set; }
+        public Guid Id { get; set; }
 
         [Required]
         [StringLength(100)]
@@ -28,5 +29,7 @@ namespace WebApplication1.Models
         [StringLength(100)]
         [MinLength(8)]
         public string Parola { get; set; }
+        
+        public Role Role { get; set; }
     }
 }
