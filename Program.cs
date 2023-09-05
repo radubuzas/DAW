@@ -14,20 +14,21 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddDbContext<DBCTX>(options => options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
 
-builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+
+builder.Services.AddRepositories();
+builder.Services.AddServices();
+builder.Services.AddSeeders();
+builder.Services.AddUtils();
 
 builder.Services.Configure<AppSettings>(builder.Configuration.GetSection("AppSettings"));
+
 
 builder.Services.AddSwaggerGen(c =>
 {
     c.SwaggerDoc("v1", new OpenApiInfo { Title = "My API", Version = "v1" });
 });
 
-
-builder.Services.AddRepositories();
-builder.Services.AddServices();
-builder.Services.AddSeeders();
-builder.Services.AddUtils();
+builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
 var app = builder.Build();
 
@@ -46,13 +47,13 @@ app.UseEndpoints(endpoints =>
 
 app.Run();
 
-// void SeedData(IHost app)
-// {
-//     var scopeFactory = app.Services.GetService<IServiceScopeFactory>();
-//
-//     using (var scope = scopeFactory.CreateScope())
-//     {
-//         var service = scope.ServiceProvider.GetService<UtilizatorSeeder>();
-//         service.SeedInitialUtilizatori();
-//     }
-// }
+void SeedData(IHost app)
+{
+    var scopeFactory = app.Services.GetService<IServiceScopeFactory>();
+
+    using (var scope = scopeFactory.CreateScope())
+    {
+        var service = scope.ServiceProvider.GetService<UtilizatorSeeder>();
+        service.SeedInitialUtilizatori();
+    }
+}

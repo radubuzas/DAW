@@ -13,9 +13,9 @@ namespace WebApplication1.Services.UtilizatorService
     public class UtilizatorService : IUtilizatorService
     {
         private readonly IUtilizatorRepository _repository;
-        private readonly JwtUtils _jwtUtils;
+        private readonly IJwtUtils _jwtUtils;
 
-        public UtilizatorService(IUtilizatorRepository repository, JwtUtils jwtUtils)
+        public UtilizatorService(IUtilizatorRepository repository, IJwtUtils jwtUtils)
         {
             _repository = repository;
             _jwtUtils = jwtUtils;

@@ -34,7 +34,7 @@ namespace WebApplication1.Helpers {
         
         public static IServiceCollection AddUtils(this IServiceCollection services)
         {
-            services.AddScoped<IJwtUtils, IJwtUtils>();
+            services.AddScoped<IJwtUtils, JwtUtils.JwtUtils>();
             return services;
         }
     }
