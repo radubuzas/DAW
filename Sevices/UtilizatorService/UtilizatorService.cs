@@ -1,21 +1,26 @@
 using WebApplication1.Models;
 using System.Collections.Generic;
 using System.Linq;
+using WebApplication1.Helpers.JwtUtils;
 using Microsoft.AspNetCore.Mvc;
 using WebApplication1.Data;
+using WebApplication1.Models.DTO;
 using WebApplication1.Repository;
+using BCryptNet = BCrypt.Net.BCrypt;
 
 namespace WebApplication1.Services.UtilizatorService
 {
     public class UtilizatorService : IUtilizatorService
     {
         private readonly IUtilizatorRepository _repository;
+        private readonly JwtUtils _jwtUtils;
 
-        public UtilizatorService(IUtilizatorRepository repository)
+        public UtilizatorService(IUtilizatorRepository repository, JwtUtils jwtUtils)
         {
             _repository = repository;
+            _jwtUtils = jwtUtils;
         }
-        
+
         public List<Utilizator> GetAll()
         {
             return _repository.GetAll();
@@ -77,7 +82,24 @@ namespace WebApplication1.Services.UtilizatorService
         {
             return _repository.GetImprumuturiByUser(id);
         }
-        
+
+        public UserResponseDTO Authenticate(UserRequestDTO model)
+        {   
+            var user = _repository.FindByEmail(model.Email);
+            if (user == null)
+            {
+                return null;
+            }
+            
+            var jwtToken = _jwtUtils.GenerateJwtToken(user);
+
+            return new UserResponseDTO(user, jwtToken);
+        }
+
+        public Task Create(UserRequestDTO newUser)
+        {
+            throw new NotImplementedException();
+        }
         
     }
 }

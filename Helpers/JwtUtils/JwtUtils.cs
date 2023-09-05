@@ -6,7 +6,7 @@ using System.Security.Claims;
 using System.Text;
 using WebApplication1.Helpers;
 
-namespace Lab4_13.Helpers.JwtUtils
+namespace WebApplication1.Helpers.JwtUtils
 {
     public class JwtUtils: IJwtUtils
     {
@@ -37,11 +37,11 @@ namespace Lab4_13.Helpers.JwtUtils
             return tokenHandler.WriteToken(token);
         }
 
-        public Guid ValidateJwtToken(string token)
+        public int ValidateJwtToken(string token)
         {
             if(token == null)
             {
-                return Guid.Empty;
+                return -1;
             }
 
             var tokenHandler = new JwtSecurityTokenHandler();
@@ -61,13 +61,13 @@ namespace Lab4_13.Helpers.JwtUtils
                 tokenHandler.ValidateToken(token, tokenValidationParameters, out SecurityToken validatedToken);
 
                 var jwtToken = (JwtSecurityToken)validatedToken;
-                var userId = new Guid(jwtToken.Claims.FirstOrDefault(x => x.Type == "id").Value);
+                var userId = int.Parse(jwtToken.Claims.FirstOrDefault(x => x.Type == "id").Value);
 
                 return userId;
             }
             catch
             {
-                return Guid.Empty;
+                return -1;
             }
         }
     }

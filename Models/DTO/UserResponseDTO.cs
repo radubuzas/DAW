@@ -4,7 +4,7 @@ namespace WebApplication1.Models.DTO;
 
 public class UserResponseDTO
 {
-    public Guid Id { get; set; }
+    public int Id { get; set; }
     
     public string Email { get; set; }
     

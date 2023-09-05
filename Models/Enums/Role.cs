@@ -1,6 +1,9 @@
-namespace WebApplication1.Models.Enums;
-
-public class Role
+namespace WebApplication1.Models.Enums
 {
-    
+
+    public enum Role
+    {
+        Admin,
+        User
+    }
 }

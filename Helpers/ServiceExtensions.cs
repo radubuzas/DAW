@@ -1,3 +1,4 @@
+using WebApplication1.Helpers.JwtUtils;
 using Microsoft.Extensions.DependencyInjection;
 using WebApplication1.Helpers.Seeders;
 using WebApplication1.Models;
@@ -28,6 +29,12 @@ namespace WebApplication1.Helpers {
             // services.AddTransient<CarteSeeder>();
             services.AddScoped<UtilizatorSeeder>();
             // services.AddTransient<ImprumutSeeder>();
+            return services;
+        }
+        
+        public static IServiceCollection AddUtils(this IServiceCollection services)
+        {
+            services.AddScoped<IJwtUtils, IJwtUtils>();
             return services;
         }
     }

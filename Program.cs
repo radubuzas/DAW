@@ -16,9 +16,7 @@ builder.Services.AddDbContext<DBCTX>(options => options.UseNpgsql(builder.Config
 
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
-builder.Services.AddRepositories();
-builder.Services.AddServices();
-builder.Services.AddSeeders();
+builder.Services.Configure<AppSettings>(builder.Configuration.GetSection("AppSettings"));
 
 builder.Services.AddSwaggerGen(c =>
 {
@@ -43,13 +41,13 @@ app.UseEndpoints(endpoints =>
 
 app.Run();
 
-void SeedData(IHost app)
-{
-    var scopeFactory = app.Services.GetService<IServiceScopeFactory>();
-
-    using (var scope = scopeFactory.CreateScope())
-    {
-        var service = scope.ServiceProvider.GetService<UtilizatorSeeder>();
-        service.SeedInitialUtilizatori();
-    }
-}
+// void SeedData(IHost app)
+// {
+//     var scopeFactory = app.Services.GetService<IServiceScopeFactory>();
+//
+//     using (var scope = scopeFactory.CreateScope())
+//     {
+//         var service = scope.ServiceProvider.GetService<UtilizatorSeeder>();
+//         service.SeedInitialUtilizatori();
+//     }
+// }

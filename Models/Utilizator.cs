@@ -6,7 +6,7 @@ namespace WebApplication1.Models
     public class Utilizator
     {
         [Key]
-        public Guid Id { get; set; }
+        public int Id { get; set; }
 
         [Required]
         [StringLength(100)]

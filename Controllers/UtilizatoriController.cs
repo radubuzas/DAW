@@ -4,6 +4,8 @@ using WebApplication1.Services;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using WebApplication1.Helpers.Attributes;
+using WebApplication1.Models.Enums;
 
 namespace WebApplication1.Controllers
 {
@@ -35,14 +37,17 @@ namespace WebApplication1.Controllers
             }
         }
         
+        [Authorization(Role.Admin)]
         [HttpGet("getAllUsers")]
         public List<Utilizator> GetAll()
         {
             return _utilizatorService.GetAll();
         }
         
+        
+        
         [HttpPut("ModifyPasswordById/{Id}")]
-        public IActionResult ModifyPassword(Guid Id, string Parola)
+        public IActionResult ModifyPassword(int Id, string Parola)
         {
             if (_utilizatorService.ModifyPassword(Id, Parola))
             {
@@ -51,14 +56,15 @@ namespace WebApplication1.Controllers
             return BadRequest();
         }
         
+        [Authorization(Role.Admin, Role.User)]
         [HttpGet("GetImprumuturiByUser")]
-        public List<Imprumut> GetImprumuturiByUser(Guid Id)
+        public List<Imprumut> GetImprumuturiByUser(int Id)
         {
             return _utilizatorService.GetImprumuturiByUser(Id);
         }
         
         [HttpDelete("DeleteUser")]
-        public IActionResult DeleteUser(Guid Id)
+        public IActionResult DeleteUser(int Id)
         {
             _utilizatorService.DeleteUser(Id);
             return Ok();

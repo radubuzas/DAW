@@ -1,10 +1,10 @@
 ﻿using WebApplication1.Models;
 
-namespace Lab4_13.Helpers.JwtUtils
+namespace WebApplication1.Helpers.JwtUtils
 {
     public interface IJwtUtils
     {
         public string GenerateJwtToken(Utilizator user);
-        public Guid ValidateJwtToken(string token);
+        public int ValidateJwtToken(string token);
     }
 }
